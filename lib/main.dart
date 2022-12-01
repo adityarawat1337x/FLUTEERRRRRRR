@@ -1,61 +1,65 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.blue,
+          title: Text("Dice"),
+        ),
+        backgroundColor: Colors.blue,
+        body: MyApp(),
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int leftNum = 1, rightNum = 1;
+  change() {
+    setState(() {
+      leftNum = 1 + new Random().nextInt(6);
+      rightNum = 1 + new Random().nextInt(6);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blueGrey,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage('assets/adi.jpeg'),
-                radius: 50,
+    return SafeArea(
+      child: Container(
+        height: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                    onPressed: () {
+                      change();
+                    },
+                    child: Image.asset('images/dice$leftNum.png')),
               ),
-              Text(
-                'Aditya Rawat',
-                style: TextStyle(
-                    fontFamily: 'Monoton', fontSize: 30, color: Colors.white),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                    onPressed: () {
+                      change();
+                    },
+                    child: Image.asset('images/dice$rightNum.png')),
               ),
-              Text(
-                'FLUTTER DEVELOPER',
-                style: TextStyle(
-                    fontFamily: 'Baloo', letterSpacing: 2, color: Colors.white),
-              ),
-              SizedBox(
-                width: 130,
-                height: 20,
-                child: Divider(color: Colors.grey[500]),
-              ),
-              Card(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                  color: Colors.white,
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.phone,
-                      color: Colors.blueGrey,
-                    ),
-                    title: Text("+91 7454852198"),
-                  )),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                color: Colors.white,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.mail,
-                    color: Colors.blueGrey,
-                  ),
-                  title: Text("rkrawat98766@gmail.com"),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
