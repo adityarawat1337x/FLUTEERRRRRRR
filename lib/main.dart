@@ -1,21 +1,15 @@
-import 'dart:math';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          title: Text("Dice"),
+void main() => runApp(
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: Colors.black,
+          body: MyApp(),
         ),
-        backgroundColor: Colors.blue,
-        body: MyApp(),
       ),
-    ),
-  );
-}
+    );
 
 class MyApp extends StatefulWidget {
   @override
@@ -23,45 +17,45 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int leftNum = 1, rightNum = 1;
-  change() {
-    setState(() {
-      leftNum = 1 + new Random().nextInt(6);
-      rightNum = 1 + new Random().nextInt(6);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        height: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                    onPressed: () {
-                      change();
-                    },
-                    child: Image.asset('images/dice$leftNum.png')),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                    onPressed: () {
-                      change();
-                    },
-                    child: Image.asset('images/dice$rightNum.png')),
-              ),
-            ),
-          ],
-        ),
-      ),
+    void play(int id) async {
+      final player = AudioPlayer();
+      await player.play(AssetSource('note$id.wav'));
+    }
+
+    List colors = [
+      Colors.red,
+      Colors.orange,
+      Colors.yellow,
+      Colors.green,
+      Colors.blue,
+      Colors.indigo,
+      Colors.purple
+    ];
+
+    Expanded generateButtons(int id) => Expanded(
+          child: TextButton(
+              onPressed: () {
+                play(id);
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(colors[id - 1]),
+                  side: MaterialStateProperty.all(BorderSide(width: 3.0))),
+              child: null),
+        );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        generateButtons(1),
+        generateButtons(2),
+        generateButtons(3),
+        generateButtons(4),
+        generateButtons(5),
+        generateButtons(6),
+        generateButtons(7),
+      ],
     );
   }
 }

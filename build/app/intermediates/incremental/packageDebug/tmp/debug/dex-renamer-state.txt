@@ -1,4 +1,4 @@
-#Thu Dec 01 10:07:45 IST 2022
+#Thu Dec 01 14:56:35 IST 2022
 base.0=/media/aditya/5C96C44A6D346B8B/Apps/mi_card_flutter-master/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
