@@ -1,61 +1,27 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:mi_card/screens/result.dart';
 
-void main() => runApp(
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.black,
-          body: MyApp(),
-        ),
-      ),
-    );
+import 'screens/input_page.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+void main() => runApp(BMICalculator());
 
-class _MyAppState extends State<MyApp> {
+class BMICalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    void play(int id) async {
-      final player = AudioPlayer();
-      await player.play(AssetSource('note$id.wav'));
-    }
-
-    List colors = [
-      Colors.red,
-      Colors.orange,
-      Colors.yellow,
-      Colors.green,
-      Colors.blue,
-      Colors.indigo,
-      Colors.purple
-    ];
-
-    Expanded generateButtons(int id) => Expanded(
-          child: TextButton(
-              onPressed: () {
-                play(id);
-              },
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(colors[id - 1]),
-                  side: MaterialStateProperty.all(BorderSide(width: 3.0))),
-              child: null),
-        );
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        generateButtons(1),
-        generateButtons(2),
-        generateButtons(3),
-        generateButtons(4),
-        generateButtons(5),
-        generateButtons(6),
-        generateButtons(7),
-      ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Color(0xFF0A0E21),
+        scaffoldBackgroundColor: Color(0xFF0A0E21),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF0A0E21),
+        ),
+      ),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => InputPage(),
+        "/result": (context) => Result(),
+      },
     );
   }
 }
